@@ -72,3 +72,5 @@ plt.scatter(days, weather_data, c=weather_colors)
 
 plt.savefig("scatter_plot.png")
 plt.clf()
+
+print("Hello GitHub!")
