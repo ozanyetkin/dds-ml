@@ -1,35 +1,68 @@
-# Importing necessary libraries
+# Importing necessary libraries and modules
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
+from sklearn.linear_model import LinearRegression
 
 # Load the dataset and observe by printing
-data = pd.read_csv("your_dataset.csv")
+data = pd.read_csv("housing.csv")
 print(data)
-
-# Split the dataset into training and testing sets
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=42)
 
 # Identify the missing values in the dataset
 missing_values = data.isnull().sum()
+print(missing_values)
 
 # Handle the missing values by dropping or filling them with the mean of the column
+# TODO: Choose your poison for NA values and activate only the preferred method
+# Drop it like it's hot
 data = data.dropna()
-data["column_name"].fillna(data["column_name"].mean(), inplace=True)
+# Fill it up!
+# data["ocean_proximity"].fillna(data["ocean_proximity"].mean(), inplace=True)
 
 # Identify categorical features
 categorical_features = data.select_dtypes(include=["object"]).columns
+print(categorical_features)
 
+# TODO: Choose your poison for handling categorical values
 # Encode the categorical features using one-hot encoding or label encoding
-encoded_data = pd.get_dummies(data, columns=categorical_features)
+data = pd.get_dummies(data, columns=categorical_features)
 
+"""
 label_encoder = LabelEncoder()
 
 for feature in categorical_features:
     data[feature] = label_encoder.fit_transform(data[feature])
+"""
+print(data)
+# Determine the target feature and separate it from the dataset
+target = "median_house_value"
+X = data.drop(target, axis=1)
+y = data[target]
 
 # Normalize the numerical features
-scaler = MinMaxScaler()
+# TODO: Choose your poison for feature scaling or not to scale it at all
+scaler = StandardScaler()
+# scaler = MinMaxScaler()
+# scaler = MaxAbsScaler()
 
-normalized_data = scaler.fit_transform(data)
+X = scaler.fit_transform(X)
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Implement simple regression
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict the target feature
+predictions = model.predict(X_test)
+
+# Print the predictions and the actual values
+print(predictions)
+print(y_test)
+
+# Calculate the accuracy of the model
+accuracy = model.score(X_test, y_test)
+print(accuracy)
