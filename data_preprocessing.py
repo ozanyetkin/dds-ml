@@ -19,7 +19,7 @@ print(missing_values)
 # Drop it like it's hot
 data = data.dropna()
 # Fill it up!
-# data["ocean_proximity"].fillna(data["ocean_proximity"].mean(), inplace=True)
+data["total_bedrooms"].fillna(data["total_bedrooms"].mean(), inplace=True)
 
 # Identify categorical features
 categorical_features = data.select_dtypes(include=["object"]).columns
@@ -36,6 +36,7 @@ for feature in categorical_features:
     data[feature] = label_encoder.fit_transform(data[feature])
 """
 print(data)
+
 # Determine the target feature and separate it from the dataset
 target = "median_house_value"
 X = data.drop(target, axis=1)
@@ -50,7 +51,9 @@ scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
 # Split the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Implement simple regression
 model = LinearRegression()
