@@ -29,3 +29,5 @@ for feature in categorical_features:
     data[feature] = label_encoder.fit_transform(data[feature])
 """
 
+# Write the file to a new CSV
+data.to_csv("housing_preprocessed.csv", index=False)

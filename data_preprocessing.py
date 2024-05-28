@@ -17,7 +17,7 @@ print(missing_values)
 # Handle the missing values by dropping or filling them with the mean of the column
 # TODO: Choose your poison for NA values and activate only the preferred method
 # Drop it like it's hot
-data = data.dropna()
+# data = data.dropna()
 # Fill it up!
 data["total_bedrooms"].fillna(data["total_bedrooms"].mean(), inplace=True)
 
@@ -52,7 +52,7 @@ X = scaler.fit_transform(X)
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=24
 )
 
 # Implement simple regression
