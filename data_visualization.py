@@ -13,8 +13,7 @@ for line in lines:
 
 # Histogram
 # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html
-counts, bins = np.histogram(weather_data)
-plt.hist(bins[:-1], bins, weights=counts)
+plt.hist(weather_data)
 
 plt.savefig("histogram.png")
 plt.clf()
