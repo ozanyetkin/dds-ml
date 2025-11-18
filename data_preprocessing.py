@@ -27,7 +27,7 @@ print(categorical_features)
 
 # TODO: Choose your poison for handling categorical values
 # Encode the categorical features using one-hot encoding or label encoding
-data = pd.get_dummies(data, columns=categorical_features)
+data = pd.get_dummies(data, columns=categorical_features.tolist())
 
 """
 label_encoder = LabelEncoder()
