@@ -1,5 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
+
+# Color palette for consistency
+color_palette = ["#0798ff", "#ff7f0e", "#b70000"]
 
 # Reading the data from text file
 with open("weather_data.txt") as f:
@@ -44,7 +46,11 @@ label_occurrences = [
     weather_labels.count("just fine"),
     weather_labels.count("hot"),
 ]
-ax.pie(label_occurrences, labels=["cold", "just fine", "hot"])
+ax.pie(
+    label_occurrences,
+    labels=["cold", "just fine", "hot"],
+    colors=color_palette,
+)
 
 plt.savefig("pie_chart.png")
 plt.clf()
@@ -61,15 +67,13 @@ plt.clf()
 weather_colors = []
 for label in weather_labels:
     if label == "cold":
-        weather_colors.append("blue")
+        weather_colors.append(color_palette[0])
     elif label == "just fine":
-        weather_colors.append("yellow")
+        weather_colors.append(color_palette[1])
     else:
-        weather_colors.append("red")
+        weather_colors.append(color_palette[2])
 
 plt.scatter(days, weather_data, c=weather_colors)
 
 plt.savefig("scatter_plot.png")
 plt.clf()
-
-print("Hello GitHub!")
